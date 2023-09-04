@@ -22,9 +22,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// Added to generate swagger
+// Add to generate swagger
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

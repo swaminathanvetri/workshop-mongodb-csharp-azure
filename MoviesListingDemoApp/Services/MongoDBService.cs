@@ -10,7 +10,6 @@ public class MongoDBService
 {
     private readonly IMongoCollection<Movie> _moviesCollection;
 
-    
     /// <summary>
     /// Initialize MongoClient for the given connection string, database and collection name
     /// </summary>
@@ -23,7 +22,7 @@ public class MongoDBService
     }
 
     /// <summary>
-    /// Get all movies document
+    /// Find all movies document in the collection
     /// </summary>
     /// <returns></returns>
     public async Task<List<Movie>> GetAsync()
@@ -33,8 +32,13 @@ public class MongoDBService
     }
     
 
+    /// <summary>
+    /// Create a movie document in the collection
+    /// </summary>
+    /// <param name="movie"></param>
     public async Task CreateAsync(Movie movie)
     {
+        await _moviesCollection.InsertOneAsync(movie);
         return;
     }
 
