@@ -37,6 +37,7 @@ public class MongoDBService
     /// <param name="movie"></param>
     public async Task CreateAsync(Movie movie)
     {
+        await _moviesCollection.InsertOneAsync(movie);
         return;
     }
 

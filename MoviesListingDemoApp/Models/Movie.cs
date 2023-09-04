@@ -6,7 +6,9 @@ namespace MoviesListingDemoApp.Models;
 
 public class Movie
 {
-    public ObjectId Id { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }
     
     public string Title { get; set; } = null!;
     
@@ -16,4 +18,9 @@ public class Movie
     
     [BsonElement("rotten_tomatoes")]
     public float RottenTomatoes { get; set; }
+    
+    public bool IsEmpty()
+    {
+        return String.IsNullOrEmpty(Title) || Year == 0;
+    }
 }
