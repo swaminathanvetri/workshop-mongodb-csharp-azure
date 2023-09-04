@@ -53,6 +53,7 @@ public class MoviesController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> AddToGenres(string id, [FromBody] string genre)
     {
+        await _mongoDBService.UpdateGenre(id, genre);
         return Ok();
     }
 

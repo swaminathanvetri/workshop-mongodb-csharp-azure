@@ -48,6 +48,9 @@ public class MongoDBService
     /// <param name="genre"></param>
     public async Task UpdateGenre(string id, string genre)
     {
+        FilterDefinition<Movie> filter = Builders<Movie>.Filter.Eq("Id", id);
+        UpdateDefinition<Movie> update = Builders<Movie>.Update.AddToSet<string>("genres", genre);
+        await _moviesCollection.UpdateOneAsync(filter, update);
         return;
     }
     
