@@ -43,7 +43,7 @@ public class MoviesController : Controller
     /// <param name="genre"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public async Task<IActionResult> AddToMovies(string id, [FromBody] string genre)
+    public async Task<IActionResult> AddToGenres(string id, [FromBody] string genre)
     {
         return Ok();
     }
