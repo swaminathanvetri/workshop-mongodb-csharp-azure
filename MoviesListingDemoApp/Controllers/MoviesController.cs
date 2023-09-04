@@ -22,8 +22,7 @@ public class MoviesController : Controller
     [HttpGet]
     public async Task<List<Movie>> Get()
     {
-        var movies = await _mongoDBService.GetAsync();
-        return movies;
+        return Enumerable.Empty<Movie>().ToList();
     }
 
     /// <summary>
@@ -34,21 +33,26 @@ public class MoviesController : Controller
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Movie movie)
     {
-        if (movie != null)
-        {
-            await _mongoDBService.CreateAsync(movie);
-            return CreatedAtAction(nameof(Get), new { id = movie.Id }, movie);
-        }
-        return BadRequest("No movie given");
-
+        return Ok();
     }
 
+    /// <summary>
+    /// Update an existing document in the collection
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="genre"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
-    public async Task<IActionResult> AddToPlaylist(string id, [FromBody] string movieId)
+    public async Task<IActionResult> AddToMovies(string id, [FromBody] string genre)
     {
         return Ok();
     }
 
+    /// <summary>
+    /// Delete an existing document in the collection
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {

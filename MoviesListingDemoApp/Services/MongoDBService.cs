@@ -27,8 +27,7 @@ public class MongoDBService
     /// <returns></returns>
     public async Task<List<Movie>> GetAsync()
     {
-        var movies = await _moviesCollection.Find(new BsonDocument()).ToListAsync();
-        return movies;
+        return null;
     }
     
 
@@ -38,15 +37,23 @@ public class MongoDBService
     /// <param name="movie"></param>
     public async Task CreateAsync(Movie movie)
     {
-        await _moviesCollection.InsertOneAsync(movie);
         return;
     }
 
-    public async Task AddToPlaylistAsync(string id, string movieId)
+    /// <summary>
+    /// Update an existing document in the collection
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="genre"></param>
+    public async Task UpdateGenre(string id, string genre)
     {
         return;
     }
     
+    /// <summary>
+    /// Delete an existing document in the collection
+    /// </summary>
+    /// <param name="id"></param>
     public async Task DeleteAsync(string id)
     {
         return;
