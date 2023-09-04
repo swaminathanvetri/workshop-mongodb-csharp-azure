@@ -15,6 +15,10 @@ public class MoviesController : Controller
         _mongoDBService = mongoDBService;
     }
 
+    /// <summary>
+    /// Get all movies document
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<List<Movie>> Get()
     {
@@ -22,10 +26,21 @@ public class MoviesController : Controller
         return movies;
     }
 
+    /// <summary>
+    /// Create a Movie document
+    /// </summary>
+    /// <param name="movie"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Movie movie)
     {
-        return Ok();
+        if (movie != null)
+        {
+            await _mongoDBService.CreateAsync(movie);
+            return CreatedAtAction(nameof(Get), new { id = movie.Id }, movie);
+        }
+        return BadRequest("No movie given");
+
     }
 
     [HttpPut("{id}")]
