@@ -27,7 +27,7 @@ public class MongoDBService
     /// <returns></returns>
     public async Task<List<Movie>> GetAsync()
     {
-        return null;
+        return await _moviesCollection.Find(new BsonDocument()).ToListAsync();
     }
     
 

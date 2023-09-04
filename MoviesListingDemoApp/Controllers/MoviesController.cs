@@ -22,7 +22,8 @@ public class MoviesController : Controller
     [HttpGet]
     public async Task<List<Movie>> Get()
     {
-        return Enumerable.Empty<Movie>().ToList();
+        var movies = await _mongoDBService.GetAsync();
+        return movies;
     }
 
     /// <summary>
