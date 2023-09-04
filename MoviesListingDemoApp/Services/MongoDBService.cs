@@ -20,7 +20,7 @@ public class MongoDBService
         IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
         _moviesCollection = database.GetCollection<Movie>(mongoDBSettings.Value.CollectionName);
     }
-    
+
     /// <summary>
     /// Find all movies document in the collection
     /// </summary>
@@ -31,6 +31,7 @@ public class MongoDBService
         return movies;
     }
     
+
     /// <summary>
     /// Create a movie document in the collection
     /// </summary>
