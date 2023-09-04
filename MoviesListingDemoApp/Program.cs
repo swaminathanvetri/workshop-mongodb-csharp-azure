@@ -5,8 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add to initialize MongoDBSettings with configuration given in appsettings.json 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDBService>();
+
+// Added to generate swagger
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
@@ -18,6 +22,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Added to generate swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();

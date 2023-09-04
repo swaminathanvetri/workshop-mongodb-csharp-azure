@@ -10,6 +10,11 @@ public class MongoDBService
 {
     private readonly IMongoCollection<Movie> _moviesCollection;
 
+    
+    /// <summary>
+    /// Initialize MongoClient for the given connection string, database and collection name
+    /// </summary>
+    /// <param name="mongoDBSettings"></param>
     public MongoDBService(IOptions<MongoDBSettings> mongoDBSettings)
     {
         MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
@@ -17,12 +22,17 @@ public class MongoDBService
         _moviesCollection = database.GetCollection<Movie>(mongoDBSettings.Value.CollectionName);
     }
 
+    /// <summary>
+    /// Get all movies document
+    /// </summary>
+    /// <returns></returns>
     public async Task<List<Movie>> GetAsync()
     {
         var movies = await _moviesCollection.Find(new BsonDocument()).ToListAsync();
         return movies;
     }
     
+
     public async Task CreateAsync(Movie movie)
     {
         return;
