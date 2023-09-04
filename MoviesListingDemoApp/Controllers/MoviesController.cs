@@ -65,6 +65,7 @@ public class MoviesController : Controller
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
+        await _mongoDBService.DeleteAsync(id);
         return Ok();
     }
 
