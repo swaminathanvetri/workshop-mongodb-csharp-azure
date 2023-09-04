@@ -49,7 +49,7 @@ public class MongoDBService
     public async Task UpdateGenre(string id, string genre)
     {
         FilterDefinition<Movie> filter = Builders<Movie>.Filter.Eq("Id", id);
-        UpdateDefinition<Movie> update = Builders<Movie>.Update.AddToSet<string>("genres", genre);
+        UpdateDefinition<Movie> update = Builders<Movie>.Update.AddToSet<string>("Genres", genre);
         await _moviesCollection.UpdateOneAsync(filter, update);
         return;
     }
