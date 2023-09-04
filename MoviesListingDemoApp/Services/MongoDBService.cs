@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MoviesListingDemoApp.Models;
 using MoviesListingDemoApp.Settings;
@@ -18,7 +19,8 @@ public class MongoDBService
 
     public async Task<List<Movie>> GetAsync()
     {
-        return null;
+        var movies = await _moviesCollection.Find(new BsonDocument()).ToListAsync();
+        return movies;
     }
     
     public async Task CreateAsync(Movie movie)
