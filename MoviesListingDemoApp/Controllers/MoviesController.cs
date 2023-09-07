@@ -22,7 +22,8 @@ public class MoviesController : Controller
     [HttpGet]
     public async Task<List<Movie>> Get()
     {
-        return Enumerable.Empty<Movie>().ToList();
+        var movies = await _mongoDBService.GetAsync();
+        return movies;
     }
 
     /// <summary>
@@ -33,7 +34,14 @@ public class MoviesController : Controller
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Movie movie)
     {
-        return Ok();
+        if (movie == null || movie.IsEmpty())
+        {
+            return BadRequest("No movie inserted");
+        }
+
+        await _mongoDBService.CreateAsync(movie);
+        return CreatedAtAction(nameof(Get), new { id = movie.Id }, movie);
+
     }
 
     /// <summary>
@@ -45,6 +53,7 @@ public class MoviesController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> AddToGenres(string id, [FromBody] string genre)
     {
+        await _mongoDBService.UpdateGenre(id, genre);
         return Ok();
     }
 
@@ -56,6 +65,7 @@ public class MoviesController : Controller
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
+        await _mongoDBService.DeleteAsync(id);
         return Ok();
     }
 

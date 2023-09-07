@@ -27,7 +27,7 @@ public class MongoDBService
     /// <returns></returns>
     public async Task<List<Movie>> GetAsync()
     {
-        return null;
+        return await _moviesCollection.Find(new BsonDocument()).ToListAsync();
     }
     
 
@@ -37,6 +37,7 @@ public class MongoDBService
     /// <param name="movie"></param>
     public async Task CreateAsync(Movie movie)
     {
+        await _moviesCollection.InsertOneAsync(movie);
         return;
     }
 
@@ -47,6 +48,9 @@ public class MongoDBService
     /// <param name="genre"></param>
     public async Task UpdateGenre(string id, string genre)
     {
+        FilterDefinition<Movie> filter = Builders<Movie>.Filter.Eq("Id", id);
+        UpdateDefinition<Movie> update = Builders<Movie>.Update.AddToSet<string>("Genres", genre);
+        await _moviesCollection.UpdateOneAsync(filter, update);
         return;
     }
     
@@ -56,6 +60,8 @@ public class MongoDBService
     /// <param name="id"></param>
     public async Task DeleteAsync(string id)
     {
+        FilterDefinition<Movie> filter = Builders<Movie>.Filter.Eq("Id", id);
+        await _moviesCollection.DeleteOneAsync(filter);
         return;
     }
 
